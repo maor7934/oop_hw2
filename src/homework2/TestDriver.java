@@ -15,7 +15,7 @@ public class TestDriver {
 
 	// String -> Graph: maps the names of graphs to the actual graph
 	// TODO: Parameterize the next line correctly.
-  	private final Map<String,          > graphs = new HashMap<>();
+  	private final Map<String,Graph<WeightedNode>> graphs = new HashMap<>();
   	// String -> WeightedNode: maps the names of nodes to the actual node
   	private final Map<String,WeightedNode> nodes = new HashMap<>();
 	private final BufferedReader input;
@@ -108,15 +108,10 @@ public class TestDriver {
 
 
   	private void createGraph(String graphName) {
-  		
-  		//TODO: Insert your code here.
-  		
-  		// graphs.put(graphName, ___);
-  		// output.println(...);
-
+		this.graphs.put(graphName, new Graph<WeightedNode>(graphName));
+		this.output.println();
   	}
- 
-  	
+
   	private void createNode(List<String> arguments) {
 
     	if (arguments.size() != 2)
@@ -131,10 +126,7 @@ public class TestDriver {
 
  	private void createNode(String nodeName, String cost) {
 
- 		// TODO: Insert your code here.
- 		
- 		// nodes.put(nodeName, ___);
- 		// output.println(...);
+
  		
   	}
 	
