@@ -14,7 +14,6 @@ import java.lang.Integer.*;
 public class TestDriver {
 
 	// String -> Graph: maps the names of graphs to the actual graph
-	// TODO: Parameterize the next line correctly.
   	private final Map<String,Graph<WeightedNode>> graphs = new HashMap<>();
   	// String -> WeightedNode: maps the names of nodes to the actual node
   	private final Map<String,WeightedNode> nodes = new HashMap<>();
@@ -125,7 +124,7 @@ public class TestDriver {
 
 
  	private void createNode(String nodeName, String cost) {
-  		this.nodes.put(nodeName, new WeightedNode(nodeName, Integer.parseInt(cost));
+  		this.nodes.put(nodeName, new WeightedNode(nodeName, Integer.parseInt(cost)));
 		this.output.println("created node " + nodeName + " with cost " + cost);
   	}
 
@@ -147,7 +146,7 @@ public class TestDriver {
   		 try {
 			 graph.AddNode(node, nodeName);
 		 } catch (AlreadyContainsException e){}
-  		 output.println("added node " + nodeName + " to graph " + graphName);
+  		 output.println("added node " + nodeName + " to " + graphName);
   	}
 
 
@@ -188,7 +187,11 @@ public class TestDriver {
   	private void listNodes(String graphName) {
 		Graph<WeightedNode> graph = graphs.get(graphName);
 		ArrayList<String> nodes_list = graph.ListNodes();
-		output.println(graphName + " contains: " + nodes_list.toString());
+		String list = "";
+		if (!nodes_list.isEmpty()){
+			list = " " + nodes_list.toString().replaceAll("[\\[\\]]", "").replaceAll(", ", " ");
+		}
+		output.println(graphName + " contains:" + list);
   	}
 
 
@@ -209,7 +212,11 @@ public class TestDriver {
 		Graph<WeightedNode> graph = graphs.get(graphName);
 		try {
 			ArrayList<String> children_list = graph.ListChildren(parentName);
-			output.println("the children of " + parentName + " in " + graphName + " are: " + children_list.toString());
+			String list = "";
+			if (!children_list.isEmpty()){
+				list = " " + children_list.toString().replaceAll("[\\[\\]]", "").replaceAll(", ", " ");
+			}
+			output.println("the children of " + parentName + " in " + graphName + " are:" + list);
 		} catch (NotContainsException e) {}
   	}
 
