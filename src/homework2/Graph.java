@@ -9,7 +9,7 @@ class AlreadyContainsException extends Exception{
 class NotContainsException extends Exception{
 
 }
-public class Graph<T extends Comparable<T>> {
+public class Graph<T> {
 
     protected String name;
     protected HashMap<String,T> nodes;
@@ -62,12 +62,11 @@ public class Graph<T extends Comparable<T>> {
     }
 
     /**
-     * @effects return the list of names of the nodes in the graph sorted alphabetically
+     * @effects returns a list of all nodes in the graph
      */
     public ArrayList<T> ListNodes(){
         this.checkRep();
         ArrayList<T> nodes = new ArrayList<>(this.nodes.values());
-        Collections.sort(nodes);
         this.checkRep();
         return nodes;
     }
@@ -75,8 +74,8 @@ public class Graph<T extends Comparable<T>> {
     /**
      *
      * @requires parent != Null
-     * @effects return the list of names of the nodes that are children of node 'parent_name', sorted alphabetically,
-     *          if 'parent_node' has no children return empty list.
+     * @effects returns a list of all children nodes of node parent.
+     *          if parent has no children returns an empty list.
      * @throws NotContainsException if 'parent_node' not inside the graph.
      */
     public ArrayList<T> ListChildren(T parent) throws NotContainsException {
@@ -85,11 +84,14 @@ public class Graph<T extends Comparable<T>> {
             throw (new NotContainsException());
         }
         ArrayList<T> children = new ArrayList<>(this.children_list.get(parent));
-        Collections.sort(children);
         this.checkRep();
         return children;
     }
 
+    /**
+     * @effects checks that the Rep. Invariant of this class is not violated.
+     * @throws AssertionError if it's violated.
+     */
     void checkRep(){
         assert (this.name != null);
         assert (this.nodes != null);

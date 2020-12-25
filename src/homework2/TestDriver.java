@@ -189,6 +189,7 @@ public class TestDriver {
   	private void listNodes(String graphName) {
 		Graph<WeightedNode> graph = graphs.get(graphName);
 		ArrayList<WeightedNode> nodes_list = graph.ListNodes();
+		Collections.sort(nodes_list);
 		StringBuilder names_list = new StringBuilder();
 		for(WeightedNode node: nodes_list) {
 			names_list.append(" ").append(node.getName());
@@ -215,6 +216,7 @@ public class TestDriver {
 		WeightedNode parent = nodes.get(parentName);
 		try {
 			ArrayList<WeightedNode> children_list = graph.ListChildren(parent);
+			Collections.sort(children_list);
 			StringBuilder names_list = new StringBuilder();
 			for(WeightedNode node: children_list) {
 				names_list.append(" ").append(node.getName());
