@@ -2,7 +2,6 @@ package homework2;
 
 import java.lang.reflect.Array;
 import java.util.*;
-import java.util.stream.Stream;
 
 class AlreadyContainsException extends Exception{
 
@@ -26,11 +25,10 @@ public class Graph<T> {
      * @effects creates new Graph object with the name as param name.
      * @return new object of type Graph<T>.
      */
-    Graph<T> CreateGraph(String name){
+    public Graph(String name){
         this.name = name;
         this.nodes = new HashMap<>();
         this.children_list = new HashMap<>();
-        return this;
     }
 
     /**
@@ -38,12 +36,13 @@ public class Graph<T> {
      * @modifes add new node to the graph with the name 'name'.
      * @throws AlreadyContainsException if node name is already inside the graph.
      */
-    void AddNode(T node, String name) throws AlreadyContainsException {
+    public void AddNode(T node, String name) throws AlreadyContainsException {
         this.checkRep();
         if(this.nodes.containsKey(name)) {
             throw (new AlreadyContainsException());
         }
         this.nodes.put(name,node);
+        this.children_list.put(name, new HashSet<String>());
         this.checkRep();
     }
 
@@ -53,7 +52,7 @@ public class Graph<T> {
      * @throws NotContainsException if 'from' or 'to' are not inside the graph.
      *         AlreadyContainsException if 'from' already has Edge to 'to'
      */
-    void AddEdge(String from, String to) throws NotContainsException,AlreadyContainsException {
+    public void AddEdge(String from, String to) throws NotContainsException,AlreadyContainsException {
         this.checkRep();
         if (!this.nodes.containsKey(from) || !this.nodes.containsKey(to)) {
             throw (new NotContainsException());
@@ -70,7 +69,7 @@ public class Graph<T> {
     /**
      * @effects return the list of names of the nodes in the graph sorted alphabetically
      */
-    ArrayList<String> ListNodes(){
+    public ArrayList<String> ListNodes(){
         this.checkRep();
         ArrayList<String> node_names = new ArrayList<>(this.nodes.keySet());
         Collections.sort(node_names);
@@ -85,7 +84,7 @@ public class Graph<T> {
      *          if 'parent_node' has no children return empty list.
      * @throws NotContainsException if 'parent_node' not inside the graph.
      */
-    ArrayList<String> ListChildren(String parent_name) throws NotContainsException {
+    public ArrayList<String> ListChildren(String parent_name) throws NotContainsException {
         this.checkRep();
         if (!this.nodes.containsKey(parent_name)) {
             throw (new NotContainsException());
@@ -97,6 +96,9 @@ public class Graph<T> {
     }
 
     void checkRep(){
-
+        assert (this.name != null);
+        assert (this.nodes != null);
+        assert (this.children_list != null);
+        assert (this.nodes.size() == this.children_list.size());
     }
 }
