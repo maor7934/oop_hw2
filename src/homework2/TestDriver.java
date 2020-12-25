@@ -5,7 +5,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.*;
-
+import java.lang.Integer.*;
 
 /**
  * This class implements a testing driver which reads test scripts
@@ -109,7 +109,7 @@ public class TestDriver {
 
   	private void createGraph(String graphName) {
 		this.graphs.put(graphName, new Graph<WeightedNode>(graphName));
-		this.output.println();
+		this.output.println("created graph " + graphName);
   	}
 
   	private void createNode(List<String> arguments) {
@@ -125,11 +125,9 @@ public class TestDriver {
 
 
  	private void createNode(String nodeName, String cost) {
-
-
- 		
+  		this.nodes.put(nodeName, new WeightedNode(nodeName, Integer.parseInt(cost));
+		this.output.println("created node " + nodeName + " with cost " + cost);
   	}
-	
 
   	private void addNode(List<String> arguments) {
 
@@ -144,13 +142,12 @@ public class TestDriver {
 
 
   	private void addNode(String graphName, String nodeName) {
-
-  		// TODO: Insert your code here.
-  		 
-  		// ___ = graphs.get(graphName);
-  		// ___ = nodes.get(nodeName);
-  		// output.println(...);
-  		
+  		 Graph<WeightedNode> graph = graphs.get(graphName);
+  		 WeightedNode node = nodes.get(nodeName);
+  		 try {
+			 graph.AddNode(node, nodeName);
+		 } catch (AlreadyContainsException e){}
+  		 output.println("added node " + nodeName + " to graph " + graphName);
   	}
 
 
@@ -168,14 +165,12 @@ public class TestDriver {
 
 
 	private void addEdge(String graphName, String parentName, String childName) {
-		
-		// TODO: Insert your code here.
-		  
-		// ___ = graphs.get(graphName);
-		// ___ = nodes.get(parentName);
-		// ___ = nodes.get(childName);
-		// output.println(...);
 
+		Graph<WeightedNode> graph = graphs.get(graphName);
+		try {
+			graph.AddEdge(parentName, childName);
+		} catch (AlreadyContainsException | NotContainsException e){}
+		output.println("added edge from " + parentName + " to " + childName + " in " + graphName);
   	}
 
 
@@ -191,12 +186,9 @@ public class TestDriver {
 
 
   	private void listNodes(String graphName) {
-  		
-  		// TODO: Insert your code here.
-  		   
-  		// ___ = graphs.get(graphName);
-  		// output.println(...);
-
+		Graph<WeightedNode> graph = graphs.get(graphName);
+		ArrayList<String> nodes_list = graph.ListNodes();
+		output.println(graphName + " contains: " + nodes_list.toString());
   	}
 
 
@@ -214,12 +206,11 @@ public class TestDriver {
 
   	private void listChildren(String graphName, String parentName) {
 
-  		// TODO: Insert your code here.
-  		    
-  		// ___ = graphs.get(graphName);
-  		// ___ = nodes.get(parentName);
-  		// output.println(...);
-  		
+		Graph<WeightedNode> graph = graphs.get(graphName);
+		try {
+			ArrayList<String> children_list = graph.ListChildren(parentName);
+			output.println("the children of " + parentName + " in " + graphName + " are: " + children_list.toString());
+		} catch (NotContainsException e) {}
   	}
 
 
