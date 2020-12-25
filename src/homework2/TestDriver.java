@@ -187,11 +187,11 @@ public class TestDriver {
   	private void listNodes(String graphName) {
 		Graph<WeightedNode> graph = graphs.get(graphName);
 		ArrayList<String> nodes_list = graph.ListNodes();
-		String list = "";
-		if (!nodes_list.isEmpty()){
-			list = " " + nodes_list.toString().replaceAll("[\\[\\]]", "").replaceAll(", ", " ");
+		StringBuilder names_list = new StringBuilder();
+		for(WeightedNode node: nodes_list) {
+			names_list.append(" ").append(node.getName());
 		}
-		output.println(graphName + " contains:" + list);
+		output.println(graphName + " contains:" + names_list);
   	}
 
 
@@ -210,11 +210,12 @@ public class TestDriver {
   	private void listChildren(String graphName, String parentName) {
 
 		Graph<WeightedNode> graph = graphs.get(graphName);
+		WeightedNode parent = nodes.get(parentName);
 		try {
-			ArrayList<String> children_list = graph.ListChildren(parentName);
-			String list = "";
-			if (!children_list.isEmpty()){
-				list = " " + children_list.toString().replaceAll("[\\[\\]]", "").replaceAll(", ", " ");
+			ArrayList<String> children_list = graph.ListChildren(parent);
+			StringBuilder names_list = new StringBuilder();
+			for(WeightedNode node: children_list) {
+				names_list.append(" ").append(node.getName());
 			}
 			output.println("the children of " + parentName + " in " + graphName + " are:" + list);
 		} catch (NotContainsException e) {}
