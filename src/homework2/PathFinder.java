@@ -51,7 +51,7 @@ public class PathFinder<N, P extends Path<N,P>> {
                     active.add(c_path);
                 }
             }
-            finished.add(queueMin)
+            finished.add(queueMin);
         }
         // execution reaches this point only if active becomes empty
         return null;
