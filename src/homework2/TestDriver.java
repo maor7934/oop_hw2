@@ -264,13 +264,31 @@ public class TestDriver {
 
   	private void findPath(String graphName, List<String> sourceArgs,
   						  List<String> destArgs) {
-  		
-  		// TODO: Insert your code here.
-  		   
+
 		Graph<WeightedNode> graph = graphs.get(graphName);
-  		___ = nodes.get(sourceArgs.get(i));
-  		// ___ = nodes.get(destArgs.get(i));
-  		// output.println(...);
+		ArrayList<WeightedNodePath> start_nodes =  new ArrayList<>();
+		ArrayList<WeightedNodePath> end_nodes =  new ArrayList<>();
+
+		for(String i : sourceArgs){
+  			start_nodes.add(new WeightedNodePath(nodes.get(i)));
+		}
+		for(String i : destArgs){
+			end_nodes.add(new WeightedNodePath(nodes.get(i)));
+		}
+		PathFinder<WeightedNode,WeightedNodePath> path_finder = new PathFinder<>(graph,start_nodes,end_nodes);
+
+		try {
+			WeightedNodePath shortest = path_finder.GetShortestPath();
+			if(shortest!=null){
+				output.println("shortest path in " + graphName + ":" +
+						shortest.toString().replace("[WeightedNodePath:","").replace(",","").replace("]",""));
+			} else {
+				output.println("no path found in " + graphName);
+			}
+		} catch (NotContainsException e) {
+			e.printStackTrace();
+		}
+		// output.println(...);
 		
   	}
 
