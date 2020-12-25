@@ -166,8 +166,10 @@ public class TestDriver {
 	private void addEdge(String graphName, String parentName, String childName) {
 
 		Graph<WeightedNode> graph = graphs.get(graphName);
+		WeightedNode parent = nodes.get(parentName);
+		WeightedNode child = nodes.get(childName);
 		try {
-			graph.AddEdge(parentName, childName);
+			graph.AddEdge(parent, child);
 		} catch (AlreadyContainsException | NotContainsException e){}
 		output.println("added edge from " + parentName + " to " + childName + " in " + graphName);
   	}
@@ -186,7 +188,7 @@ public class TestDriver {
 
   	private void listNodes(String graphName) {
 		Graph<WeightedNode> graph = graphs.get(graphName);
-		ArrayList<String> nodes_list = graph.ListNodes();
+		ArrayList<WeightedNode> nodes_list = graph.ListNodes();
 		StringBuilder names_list = new StringBuilder();
 		for(WeightedNode node: nodes_list) {
 			names_list.append(" ").append(node.getName());
@@ -212,15 +214,14 @@ public class TestDriver {
 		Graph<WeightedNode> graph = graphs.get(graphName);
 		WeightedNode parent = nodes.get(parentName);
 		try {
-			ArrayList<String> children_list = graph.ListChildren(parent);
+			ArrayList<WeightedNode> children_list = graph.ListChildren(parent);
 			StringBuilder names_list = new StringBuilder();
 			for(WeightedNode node: children_list) {
 				names_list.append(" ").append(node.getName());
 			}
-			output.println("the children of " + parentName + " in " + graphName + " are:" + list);
+			output.println("the children of " + parentName + " in " + graphName + " are:" + names_list);
 		} catch (NotContainsException e) {}
   	}
-
 
   	private void findPath(List<String> arguments) {
 

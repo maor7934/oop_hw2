@@ -1,0 +1,4 @@
+created node n1 with cost 1
+created graph A
+added node n1 to A
+the children of n1 in A are:

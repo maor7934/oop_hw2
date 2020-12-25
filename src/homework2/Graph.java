@@ -11,9 +11,9 @@ class NotContainsException extends Exception{
 }
 public class Graph<T extends Comparable<T>> {
 
-    private String name;
-    private HashMap<String,T> nodes;
-    private HashMap<T,Set<T>> children_list;
+    protected String name;
+    protected HashMap<String,T> nodes;
+    protected HashMap<T,Set<T>> children_list;
 
     /**
      * @requires name != Null.
@@ -81,7 +81,7 @@ public class Graph<T extends Comparable<T>> {
      */
     public ArrayList<T> ListChildren(T parent) throws NotContainsException {
         this.checkRep();
-        if (!this.nodes.containsKey(parent)) {
+        if (!this.nodes.containsValue(parent)) {
             throw (new NotContainsException());
         }
         ArrayList<T> children = new ArrayList<>(this.children_list.get(parent));
