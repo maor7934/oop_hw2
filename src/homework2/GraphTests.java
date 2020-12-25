@@ -68,13 +68,12 @@ public class GraphTests extends ScriptFileTests {
 		} catch (AlreadyContainsException e) {
 			e.printStackTrace();
 		}
-		ArrayList<Integer> my_list = new ArrayList<>();
-		my_list.add(3);
-		my_list.add(4);
-		my_list.add(5);
-		my_list.add(6);
-		my_list.add(7);
-		assertEquals(my_list, g.ListNodes());
+		ArrayList<Integer> my_list = g.ListNodes();
+		assertTrue(my_list.contains(3));
+		assertTrue(my_list.contains(4));
+		assertTrue(my_list.contains(5));
+		assertTrue(my_list.contains(6));
+		assertTrue(my_list.contains(7));
 	}
 
 	@Test
@@ -94,14 +93,13 @@ public class GraphTests extends ScriptFileTests {
 		} catch (AlreadyContainsException|NotContainsException e) {
 			e.printStackTrace();
 		}
-		ArrayList<Integer> my_list = new ArrayList<>();
-		my_list.add(3);
-		my_list.add(4);
-		my_list.add(5);
-		my_list.add(6);
-		my_list.add(7);
 		try {
-			assertEquals(my_list, g.ListChildren(3));
+			ArrayList<Integer> my_list = g.ListChildren(3);
+			assertTrue(my_list.contains(3));
+			assertTrue(my_list.contains(4));
+			assertTrue(my_list.contains(5));
+			assertTrue(my_list.contains(6));
+			assertTrue(my_list.contains(7));
 		} catch (NotContainsException e) {
 			e.printStackTrace();
 		}
