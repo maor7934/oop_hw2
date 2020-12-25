@@ -1,6 +1,5 @@
 package homework2;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 class AlreadyContainsException extends Exception{
@@ -8,10 +7,6 @@ class AlreadyContainsException extends Exception{
 }
 
 class NotContainsException extends Exception{
-
-}
-
-class EmptyInputException extends Exception{
 
 }
 public class Graph<T> {
