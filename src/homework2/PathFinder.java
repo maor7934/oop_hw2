@@ -11,7 +11,7 @@ public class PathFinder<N, P extends Path<N,P>> {
 
     /**
      * @requiers graph != Null && start_paths != Null && end_paths != Null
-     * @effects TODO
+     * @effects build instance of PathFinder with graph, start_paths, end_paths
      */
     public PathFinder(Graph<N> graph, ArrayList<Path<N, P>> start_paths, ArrayList<Path<N, P>> end_paths) {
         this.graph = graph;

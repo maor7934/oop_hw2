@@ -10,7 +10,16 @@ class NotContainsException extends Exception{
 
 }
 public class Graph<T> {
-
+/**
+ * <b>Abs. Function:</b>
+            *  Represents a graph of nodes by holding all nodes and all edges
+            *  (edges are practically parent->children mapping)
+ * <b>Rep. Invariant:</b>
+            * this.name != null
+            * this.node != null
+            * this.children_list != null
+            * this.nodes.size() == this.children_list.size()
+*/
     protected String name;
     protected HashMap<String,T> nodes;
     protected HashMap<T,Set<T>> children_list;
