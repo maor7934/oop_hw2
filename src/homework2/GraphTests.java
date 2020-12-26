@@ -175,13 +175,23 @@ public class GraphTests extends ScriptFileTests {
 		arr_2.add(path_2);
 		ArrayList<WeightedNode> my_arr_2 = new ArrayList<>();
 		my_arr_2.add(node_3);
-		PathFinder<WeightedNode,WeightedNodePath> my_pathfinder =
-				new PathFinder<WeightedNode,WeightedNodePath>(g,arr_1,arr_2);
+		try {
+			PathFinder<WeightedNode,WeightedNodePath> my_pathfinder_1, my_pathfinder_2, my_pathfinder_3;
+			my_pathfinder_1 = new PathFinder<>(g,new ArrayList<WeightedNodePath>(),new ArrayList<>());
+			assertEquals("PathFinder: Shortest path is not empty",null,my_pathfinder_1.GetShortestPath());
+			my_pathfinder_2 = new PathFinder<>(g,arr_1,new ArrayList<WeightedNodePath>());
+			assertEquals("PathFinder: Shortest path is not empty",null,my_pathfinder_2.GetShortestPath());
+			my_pathfinder_3 = new PathFinder<>(g,new ArrayList<WeightedNodePath>(),arr_2);
+			assertEquals("PathFinder: Shortest path is not empty",null,my_pathfinder_3.GetShortestPath());
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		PathFinder<WeightedNode,WeightedNodePath> my_pathfinder = new PathFinder<>(g,arr_1,arr_2);
 		assertEquals("PathFinder: Graphs are not equal",g,my_pathfinder.graph);
 		assertEquals("PathFinder: Start nodes are not equal",arr_1,my_pathfinder.start_paths);
 		assertEquals("PathFinder: End nodes are not equal",my_arr_2,my_pathfinder.end_paths);
 		WeightedNodePath shortest = my_pathfinder.GetShortestPath();
 		WeightedNodePath my_shortest = new WeightedNodePath(node_1);
-		assertEquals(shortest,my_shortest.extend(node_3));
+		assertEquals("PathFinder: Shortest path is not correct",shortest,my_shortest.extend(node_3));
 	}
 }
