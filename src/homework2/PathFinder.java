@@ -45,8 +45,7 @@ public class PathFinder<N, P extends Path<N,P>> {
             // iterate over edges (queueMin, c) in queueMin.edges
             for (N child : this.graph.ListChildren(queueMin)) {
                 P c_path = queueMinPath.extend(child);
-                if ((!finished.contains(child)) && (!active.contains(c_path)) && (queueMin != child)) {
-                    active.remove(paths.get(child));
+                if ((!finished.contains(child)) && (!active.contains(paths.get(child))) && (queueMin != child)) {
                     paths.put(child, c_path);
                     active.add(c_path);
                 }

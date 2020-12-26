@@ -147,4 +147,41 @@ public class GraphTests extends ScriptFileTests {
 		g.AddEdge(3, 4);
 	}
 
+	@Test
+	public void check_pathfinder() throws AlreadyContainsException, NotContainsException {
+		Graph<WeightedNode> g = new Graph<>("int_graph");
+		WeightedNode node_1 = new WeightedNode("int_1",1);
+		WeightedNode node_2 = new WeightedNode("int_2",2);
+		WeightedNode node_3 = new WeightedNode("int_3",3);
+		WeightedNode node_4 = new WeightedNode("int_4",4);
+		g.AddNode(node_1, "int_1");
+		g.AddNode(node_2, "int_2");
+		g.AddNode(node_3, "int_3");
+		g.AddNode(node_4, "int_4");
+		g.AddEdge(node_1, node_2);
+		g.AddEdge(node_1, node_3);
+		g.AddEdge(node_1, node_4);
+		g.AddEdge(node_2, node_1);
+		g.AddEdge(node_2, node_3);
+		g.AddEdge(node_2, node_4);
+		g.AddEdge(node_3, node_1);
+		g.AddEdge(node_3, node_2);
+		g.AddEdge(node_3, node_4);
+		WeightedNodePath path_1 = new WeightedNodePath(node_1);
+		WeightedNodePath path_2 = new WeightedNodePath(node_3);
+		ArrayList<WeightedNodePath> arr_1 = new ArrayList<>();
+		ArrayList<WeightedNodePath> arr_2 = new ArrayList<>();
+		arr_1.add(path_1);
+		arr_2.add(path_2);
+		ArrayList<WeightedNode> my_arr_2 = new ArrayList<>();
+		my_arr_2.add(node_3);
+		PathFinder<WeightedNode,WeightedNodePath> my_pathfinder =
+				new PathFinder<WeightedNode,WeightedNodePath>(g,arr_1,arr_2);
+		assertEquals("PathFinder: Graphs are not equal",g,my_pathfinder.graph);
+		assertEquals("PathFinder: Start nodes are not equal",arr_1,my_pathfinder.start_paths);
+		assertEquals("PathFinder: End nodes are not equal",my_arr_2,my_pathfinder.end_paths);
+		WeightedNodePath shortest = my_pathfinder.GetShortestPath();
+		WeightedNodePath my_shortest = new WeightedNodePath(node_1);
+		assertEquals(shortest,my_shortest.extend(node_3));
+	}
 }
