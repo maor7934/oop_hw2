@@ -4,9 +4,9 @@ import java.util.*;
 
 public class PathFinder<N, P extends Path<N,P>> {
 
-    private ArrayList<P> start_paths;
-    private ArrayList<N> end_paths;
-    private Graph<N> graph;
+    protected ArrayList<P> start_paths;
+    protected ArrayList<N> end_paths;
+    protected Graph<N> graph;
 
 
     /**
@@ -37,8 +37,8 @@ public class PathFinder<N, P extends Path<N,P>> {
         ArrayList<N> finished = new ArrayList<>();
         while (active.size() != 0) {
             //queueMin is the element of active with shortest path
-            P queueMinPath = active.poll();
-            N queueMin = queueMinPath.getEnd();
+            N queueMin = active.poll().getEnd();
+            P queueMinPath = paths.get(queueMin);
             if (this.end_paths.contains(queueMin)) {
                 return queueMinPath;
             }
