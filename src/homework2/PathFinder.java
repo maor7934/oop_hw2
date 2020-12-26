@@ -8,6 +8,14 @@ public class PathFinder<N, P extends Path<N,P>> {
     protected ArrayList<N> end_paths;
     protected Graph<N> graph;
 
+    /**
+     * <b>Abs. Function:</b>
+     *  Represents a path finder of a given graph by holding the graph, possible start points, possible end points.
+     * <b>Rep. Invariant:</b>
+     * this.graph != null
+     * this.start_paths != null
+     * this.end_paths != null
+     */
 
     /**
      * @requires graph != Null && start_paths != Null && end_paths != Null
