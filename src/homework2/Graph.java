@@ -9,6 +9,15 @@ class AlreadyContainsException extends Exception{
 class NotContainsException extends Exception{
 
 }
+
+/**
+ * this class represents a generic graph.
+ * the generic variable, T, represents the type of nodes in the graph.
+ * the following fields are used:
+ * name - the graph's name
+ * nodes - a HashMap (node name -> node object) of all nodes in the graph
+ * children_list - a HashMap (node object -> a Set of all children of this node) for all nodes in the graph
+ */
 public class Graph<T> {
 /**
  * <b>Abs. Function:</b>
