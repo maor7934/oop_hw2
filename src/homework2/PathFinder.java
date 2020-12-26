@@ -10,7 +10,7 @@ public class PathFinder<N, P extends Path<N,P>> {
 
 
     /**
-     * @requiers graph != Null && start_paths != Null && end_paths != Null
+     * @requires graph != Null && start_paths != Null && end_paths != Null
      * @effects build instance of PathFinder with graph, start_paths, end_paths
      */
     public PathFinder(Graph<N> graph, ArrayList<P> start_paths, ArrayList<P> end_paths) {
