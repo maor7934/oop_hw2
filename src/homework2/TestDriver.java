@@ -280,8 +280,11 @@ public class TestDriver {
 		try {
 			WeightedNodePath shortest = path_finder.GetShortestPath();
 			if(shortest!=null){
-				output.println("shortest path in " + graphName + ":" +
-						shortest.toString().replace("[WeightedNodePath:","").replace(",","").replace("]",""));
+				StringBuilder names_list = new StringBuilder();
+				for(Iterator<WeightedNode> i = shortest.iterator(); i.hasNext();) {
+					names_list.append(" ").append(i.next().getName());
+				}
+				output.println("shortest path in " + graphName + ":" + names_list);
 			} else {
 				output.println("no path found in " + graphName);
 			}
