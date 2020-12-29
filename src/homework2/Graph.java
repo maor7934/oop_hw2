@@ -2,118 +2,128 @@ package homework2;
 
 import java.util.*;
 
-class AlreadyContainsException extends Exception{
+class AlreadyHasNodeException extends Exception {
 
 }
 
-class NotContainsException extends Exception{
+class AlreadyHasEdgeException extends Exception {
 
 }
 
-/**
- * this class represents a generic graph.
- * the generic variable, T, represents the type of nodes in the graph.
- * the following fields are used:
- * name - the graph's name
- * nodes - a HashMap (node name -> node object) of all nodes in the graph
- * children_list - a HashMap (node object -> a Set of all children of this node) for all nodes in the graph
- */
+class NodeNotInGraphExpection extends Exception {
+
+}
+
 public class Graph<T> {
-/**
- * <b>Abs. Function:</b>
-            *  Represents a graph of nodes by holding all nodes and all edges
-            *  (edges are practically parent->children mapping)
- * <b>Rep. Invariant:</b>
-            * this.name != null
-            * this.node != null
-            * this.children_list != null
-            * this.nodes.size() == this.children_list.size()
-*/
-    protected String name;
-    protected HashMap<String,T> nodes;
-    protected HashMap<T,Set<T>> children_list;
 
     /**
-     * @requires name != Null.
-     * @effects creates new Graph object with the name as param name.
-     * @return new object of type Graph<T>.
+     * <b>Abstract Function-</b> The class contains all the nodes of certain graph,
+     * with it's connectivity (edges) between nodes. <b>Representation
+     * Invariant-</b> all the edges must be contained inside the graph. no null
+     * nodes.
      */
-    public Graph(String name){
-        this.name = name;
-        this.nodes = new HashMap<>();
-        this.children_list = new HashMap<>();
+    private void checkRep() {
+        assert this.nodeCollection != null : "Rep. Inv. of class is violeted";
     }
 
-    /**
-     * @requires node != Null && name != Null && node.name == name .
-     * @modifes add new node to the graph with the name 'name'.
-     * @throws AlreadyContainsException if node name is already inside the graph.
-     */
-    public void AddNode(T node, String name) throws AlreadyContainsException {
-        this.checkRep();
-        if(this.nodes.containsKey(name)) {
-            throw (new AlreadyContainsException());
+    protected final HashMap<T, HashSet<T>> nodeCollection;
+
+    // TODO: maybe for checkrep?
+    private Boolean checkAllSetInGraph(HashSet<T> childrenSet) {
+
+        Iterator<T> iChild = childrenSet.iterator();
+        while (iChild.hasNext()) {
+            T currChild = iChild.next();
+            if (!this.nodeCollection.containsKey(currChild)) {
+                return false;
+            }
         }
-        this.nodes.put(name,node);
-        this.children_list.put(node, new HashSet<T>());
-        this.checkRep();
+        return true;
+
     }
 
     /**
-     * @requires from != Null && to != Null
-     * @modifes add new edge to the graph from node 'from' to the node 'to'.
-     * @throws NotContainsException if 'from' or 'to' are not inside the graph.
-     *         AlreadyContainsException if 'from' already has Edge to 'to'
-     */
-    public void AddEdge(T from, T to) throws NotContainsException,AlreadyContainsException {
-        this.checkRep();
-        if (!this.nodes.containsValue(from) || !this.nodes.containsValue(to)) {
-            throw (new NotContainsException());
-        }
-        Set<T> children = this.children_list.get(from);
-        if(children.contains(to)){
-            throw (new AlreadyContainsException());
-        }
-        children.add(to);
-        this.children_list.put(from,children);
-        this.checkRep();
-    }
-
-    /**
-     * @effects returns a list of all nodes in the graph
-     */
-    public ArrayList<T> ListNodes(){
-        this.checkRep();
-        ArrayList<T> nodes = new ArrayList<>(this.nodes.values());
-        this.checkRep();
-        return nodes;
-    }
-
-    /**
+     * Constructs new graph object.
      *
-     * @requires parent != Null
-     * @effects returns a list of all children nodes of node parent.
-     *          if parent has no children returns an empty list.
-     * @throws NotContainsException if 'parent_node' not inside the graph.
-     */
-    public ArrayList<T> ListChildren(T parent) throws NotContainsException {
-        this.checkRep();
-        if (!this.nodes.containsValue(parent)) {
-            throw (new NotContainsException());
-        }
-        ArrayList<T> children = new ArrayList<>(this.children_list.get(parent));
-        this.checkRep();
-        return children;
+     * @requires none.
+     * @effects constructs an empty graph.
+     * @modifies this object
+     **/
+    public Graph() {
+        this.nodeCollection = new HashMap<T, HashSet<T>>();
+        checkRep();
     }
 
     /**
-     * @effects checks that the Rep. Invariant of this class is not violated.
-     * @throws AssertionError if it's violated.
-     */
-    void checkRep(){
-        assert (this.name != null);
-        assert (this.nodes != null);
-        assert (this.children_list != null);
-        assert (this.nodes.size() == this.children_list.size());
+     * Adds a new Node to the graph.
+     *
+     * @requires the valid String node Name, and a node with type <T>.
+     * @effects Adds the node into the graph (adds new object).
+     * @modifies this object.
+     * @throws AlreadyHasNodeException if Node already exists
+     **/
+    public void addNode(T new_node) throws AlreadyHasNodeException {
+        checkRep();
+        if (this.nodeCollection.containsKey(new_node)) {
+            throw new AlreadyHasNodeException();
+
+        }
+        this.nodeCollection.putIfAbsent(new_node, new HashSet<T>());
+        checkRep();
+    }
+
+    /**
+     * Adds a new edge between parent and child nodes.
+     *
+     * @requires none
+     * @effects Adds the edge into the graph (adds new object).
+     * @modifies this object.
+     * @return true if added the child,
+     * @throws AlreadyHasEdgeException is it didn't  (already has the edgeg)
+     * @throws NodeNotInGraphExpection is it didn't (parent or child arne't found in the graph)
+     **/
+    public Boolean addEdge(T parent_node, T child_node_name) throws AlreadyHasEdgeException, NodeNotInGraphExpection {
+        checkRep();
+        if (!(this.nodeCollection.containsKey(parent_node) && this.nodeCollection.containsKey(child_node_name))) {
+            throw new NodeNotInGraphExpection();
+        }
+        if (this.nodeCollection.get(parent_node).contains(child_node_name)) {
+            throw new AlreadyHasEdgeException();
+        }
+        return this.nodeCollection.get(parent_node).add(child_node_name);
+    }
+
+    /**
+     * the function returns a set of the keys in the graph.
+     *
+     * @requires this object is initialized
+     * @effects none
+     * @modifies none
+     * @return set of the nodes in the graph.
+     **/
+    public ArrayList<T> getNodes() {
+        checkRep();
+        return new ArrayList<T>(this.nodeCollection.keySet()); // TODO: maybe return hard copy of nodes?
+    }
+
+    /**
+     * the function returns an arraylist of the children of a given parent nod in
+     * the graph.
+     *
+     * @requires this object is initialized
+     * @effects none
+     * @modifies none
+     * @return if the parent exist in the graph, we'll return an array list
+     *         containing its children, and null otherwise.
+     **/
+    public ArrayList<T> getChildren(T parentNode) throws NodeNotInGraphExpection {
+        checkRep();
+        if (this.nodeCollection.containsKey(parentNode)) {
+            // return this.nodeCollection.get(parentNode);
+            return new ArrayList<T>(this.nodeCollection.get(parentNode)); // TODO: maybe return hard copy of nodes?
+        } else {
+            throw new NodeNotInGraphExpection();
+
+        }
     }
 }

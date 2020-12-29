@@ -19,179 +19,155 @@ public class GraphTests extends ScriptFileTests {
 	}
 
 	@Test
-	public void graph_creation(){
-		Graph<Integer> g = new Graph<>("int_graph");
-		assertEquals("int_graph", g.name);
-		assertEquals(new HashMap<String,Integer>(), g.nodes);
-		assertEquals(new HashMap<Integer, Set<Integer>>(), g.children_list);
-	}
-	@Test
-	public void node_addition(){
-		Graph<Integer> g = new Graph<>("int_graph");
-		try {
-			g.AddNode(3, "int_3");
-		} catch (AlreadyContainsException e) {
-			e.printStackTrace();
-		}
-		HashMap<String,Integer> my_hash = new HashMap<>();
-		my_hash.put("int_3", 3);
-		assertEquals(my_hash, g.nodes);
+	public void check_create_graph() {
+		Graph<Integer> graph = new Graph<>();
+		assertEquals(new HashMap<Integer, HashSet<Integer>>(), graph.nodeCollection);
 	}
 
 	@Test
-	public void edge_addition(){
-		Graph<Integer> g = new Graph<>("int_graph");
+	public void check_add_node() {
+		Graph<Integer> graph = new Graph<>();
 		try {
-			g.AddNode(3, "int_3");
-			g.AddNode(4, "int_4");
-			g.AddEdge(3, 4);
-		} catch (AlreadyContainsException|NotContainsException e) {
+			graph.addNode(1);
+		} catch (AlreadyHasNodeException e) {
 			e.printStackTrace();
 		}
-		HashMap<Integer,Set<Integer>> my_hash = new HashMap<>();
-		HashSet<Integer> my_set = new HashSet<>();
-		my_set.add(4);
-		my_hash.put(3, my_set);
-		my_hash.put(4, new HashSet<>());
-		assertEquals(my_hash, g.children_list);
+		HashMap<Integer, HashSet<Integer>> check_hash = new HashMap<>();
+		check_hash.put(1, new HashSet<Integer>());
+		assertEquals(check_hash, graph.nodeCollection);
+	}
+
+	@Test(expected = AlreadyHasNodeException.class)
+	public void check_add_same_node() throws AlreadyHasNodeException {
+		Graph<Integer> graph = new Graph<>();
+		graph.addNode(123);
+		graph.addNode(123);
+	}
+
+	@Test(expected = NodeNotInGraphExpection.class)
+	public void check_missing_node() throws NodeNotInGraphExpection {
+		Graph<Integer> graph = new Graph<>();
+		graph.getChildren(1);
+	}
+
+	public void check_add_edge() {
+		Graph<Integer> graph = new Graph<>();
+		try {
+			graph.addNode(1);
+			graph.addNode(2);
+			graph.addEdge(1, 2);
+		} catch (AlreadyHasNodeException | NodeNotInGraphExpection | AlreadyHasEdgeException e) {
+			e.printStackTrace();
+		}
+		HashMap<Integer, HashSet<Integer>> check_hash = new HashMap<>();
+		check_hash.put(1, new HashSet<Integer>());
+		check_hash.put(2, new HashSet<Integer>());
+		check_hash.get(1).add(2);
+		assertEquals(check_hash, graph.nodeCollection);
+	}
+
+	@Test(expected = AlreadyHasEdgeException.class)
+	public void check_add_same_edge() throws AlreadyHasNodeException, NodeNotInGraphExpection, AlreadyHasEdgeException {
+		Graph<Integer> graph = new Graph<>();
+		graph.addNode(1);
+		graph.addNode(2);
+		graph.addEdge(1, 2);
+		graph.addEdge(1, 2);
+	}
+
+	@Test(expected = NodeNotInGraphExpection.class)
+	public void check_add_edge_missing_first_node()
+			throws AlreadyHasNodeException, NodeNotInGraphExpection, AlreadyHasEdgeException {
+		Graph<Integer> graph = new Graph<>();
+		graph.addNode(1);
+		graph.addEdge(1, 2);
+	}
+
+	@Test(expected = NodeNotInGraphExpection.class)
+	public void check_add_edge_missing_second_node()
+			throws AlreadyHasNodeException, NodeNotInGraphExpection, AlreadyHasEdgeException {
+		Graph<Integer> graph = new Graph<>();
+		graph.addNode(2);
+		graph.addEdge(1, 2);
+	}
+
+	@Test(expected = NodeNotInGraphExpection.class)
+	public void check_add_edge_missing_both_node()
+			throws AlreadyHasNodeException, NodeNotInGraphExpection, AlreadyHasEdgeException {
+		Graph<Integer> graph = new Graph<>();
+		graph.addEdge(1, 2);
 	}
 
 	@Test
-	public void check_list_nodes(){
-		Graph<Integer> g = new Graph<>("int_graph");
+	public void check_graph_good_test() {
+		Graph<Integer> graph = new Graph<>();
 		try {
-			g.AddNode(4, "int_4");
-			g.AddNode(5, "int_5");
-			g.AddNode(3, "int_3");
-			g.AddNode(7, "int_7");
-			g.AddNode(6, "int_6");
-		} catch (AlreadyContainsException e) {
+			graph.addNode(1);
+			graph.addNode(2);
+			graph.addNode(3);
+			graph.addNode(4);
+			graph.addNode(5);
+			graph.addNode(6);
+			graph.addNode(7);
+			graph.addNode(8);
+			graph.addNode(9);
+			graph.addNode(10);
+			graph.addEdge(1, 2);
+			graph.addEdge(1, 3);
+			graph.addEdge(1, 4);
+			graph.addEdge(1, 5);
+			graph.addEdge(1, 6);
+			graph.addEdge(1, 7);
+			graph.addEdge(1, 8);
+			graph.addEdge(1, 9);
+			graph.addEdge(1, 10);
+			graph.addEdge(2, 1);
+			graph.addEdge(3, 2);
+			graph.addEdge(4, 7);
+			graph.addEdge(7, 3);
+			graph.addEdge(3, 4);
+			graph.addEdge(4, 5);
+			graph.addEdge(8, 4);
+			graph.addEdge(8, 1);
+			graph.addEdge(7, 2);
+			graph.addEdge(7, 1);
+
+		} catch (AlreadyHasNodeException | NodeNotInGraphExpection | AlreadyHasEdgeException e) {
 			e.printStackTrace();
 		}
-		ArrayList<Integer> my_list = g.ListNodes();
-		assertTrue(my_list.contains(3));
-		assertTrue(my_list.contains(4));
-		assertTrue(my_list.contains(5));
-		assertTrue(my_list.contains(6));
-		assertTrue(my_list.contains(7));
-	}
-
-	@Test
-	public void check_list_children(){
-		Graph<Integer> g = new Graph<>("int_graph");
 		try {
-			g.AddNode(4, "int_4");
-			g.AddNode(5, "int_5");
-			g.AddNode(3, "int_3");
-			g.AddNode(7, "int_7");
-			g.AddNode(6, "int_6");
-			g.AddEdge(3, 6);
-			g.AddEdge(3, 4);
-			g.AddEdge(3, 7);
-			g.AddEdge(3, 5);
-			g.AddEdge(3, 3);
-		} catch (AlreadyContainsException|NotContainsException e) {
+			assertTrue(graph.nodeCollection.containsKey(1));
+			assertTrue(graph.nodeCollection.containsKey(2));
+			assertTrue(graph.nodeCollection.containsKey(3));
+			assertTrue(graph.nodeCollection.containsKey(4));
+			assertTrue(graph.nodeCollection.containsKey(5));
+			assertTrue(graph.nodeCollection.containsKey(6));
+			assertTrue(graph.nodeCollection.containsKey(7));
+			assertTrue(graph.nodeCollection.containsKey(8));
+			assertTrue(graph.nodeCollection.containsKey(9));
+			assertTrue(graph.nodeCollection.containsKey(10));
+			assertTrue(graph.getChildren(1).contains(2));
+			assertTrue(graph.getChildren(1).contains(3));
+			assertTrue(graph.getChildren(1).contains(4));
+			assertTrue(graph.getChildren(1).contains(5));
+			assertTrue(graph.getChildren(1).contains(6));
+			assertTrue(graph.getChildren(1).contains(7));
+			assertTrue(graph.getChildren(1).contains(8));
+			assertTrue(graph.getChildren(1).contains(9));
+			assertTrue(graph.getChildren(1).contains(10));
+			assertTrue(graph.getChildren(2).contains(1));
+			assertTrue(graph.getChildren(3).contains(2));
+			assertTrue(graph.getChildren(4).contains(7));
+			assertTrue(graph.getChildren(7).contains(3));
+			assertTrue(graph.getChildren(3).contains(4));
+			assertTrue(graph.getChildren(4).contains(5));
+			assertTrue(graph.getChildren(8).contains(4));
+			assertTrue(graph.getChildren(8).contains(1));
+			assertTrue(graph.getChildren(7).contains(2));
+			assertTrue(graph.getChildren(7).contains(1));
+		} catch (NodeNotInGraphExpection e){
 			e.printStackTrace();
 		}
-		try {
-			ArrayList<Integer> my_list = g.ListChildren(3);
-			assertTrue(my_list.contains(3));
-			assertTrue(my_list.contains(4));
-			assertTrue(my_list.contains(5));
-			assertTrue(my_list.contains(6));
-			assertTrue(my_list.contains(7));
-		} catch (NotContainsException e) {
-			e.printStackTrace();
-		}
 	}
 
-	@Test(expected = AlreadyContainsException.class)
-	public void check_double_node_error() throws AlreadyContainsException{
-		Graph<Integer> g = new Graph<>("int_graph");
-		g.AddNode(4, "int_4");
-		g.AddNode(8, "int_4");
-	}
-
-	@Test(expected = NotContainsException.class)
-	public void check_node_not_exists() throws NotContainsException{
-		Graph<Integer> g = new Graph<>("int_graph");
-		g.ListChildren(5);
-	}
-
-	@Test(expected = NotContainsException.class)
-	public void check_node_not_exists_edge_src() throws NotContainsException, AlreadyContainsException{
-		Graph<Integer> g = new Graph<>("int_graph");
-		g.AddNode(4, "int_4");
-		g.AddEdge(3, 4);
-	}
-
-	@Test(expected = NotContainsException.class)
-	public void check_node_not_exists_edge_dst() throws NotContainsException, AlreadyContainsException{
-		Graph<Integer> g = new Graph<>("int_graph");
-		g.AddNode(4, "int_4");
-		g.AddEdge(4, 5);
-	}
-
-	@Test(expected = NotContainsException.class)
-	public void check_node_not_exists_edge_both() throws NotContainsException, AlreadyContainsException {
-		Graph<Integer> g = new Graph<>("int_graph");
-		g.AddEdge(4, 5);
-	}
-
-	@Test(expected = AlreadyContainsException.class)
-	public void check_double_edge() throws NotContainsException, AlreadyContainsException {
-		Graph<Integer> g = new Graph<>("int_graph");
-		g.AddNode(3, "int_3");
-		g.AddNode(4, "int_4");
-		g.AddEdge(3, 4);
-		g.AddEdge(3, 4);
-	}
-
-	@Test
-	public void check_pathfinder() throws AlreadyContainsException, NotContainsException {
-		Graph<WeightedNode> g = new Graph<>("int_graph");
-		WeightedNode node_1 = new WeightedNode("int_1",1);
-		WeightedNode node_2 = new WeightedNode("int_2",2);
-		WeightedNode node_3 = new WeightedNode("int_3",3);
-		WeightedNode node_4 = new WeightedNode("int_4",4);
-		g.AddNode(node_1, "int_1");
-		g.AddNode(node_2, "int_2");
-		g.AddNode(node_3, "int_3");
-		g.AddNode(node_4, "int_4");
-		g.AddEdge(node_1, node_2);
-		g.AddEdge(node_1, node_3);
-		g.AddEdge(node_1, node_4);
-		g.AddEdge(node_2, node_1);
-		g.AddEdge(node_2, node_3);
-		g.AddEdge(node_2, node_4);
-		g.AddEdge(node_3, node_1);
-		g.AddEdge(node_3, node_2);
-		g.AddEdge(node_3, node_4);
-		WeightedNodePath path_1 = new WeightedNodePath(node_1);
-		WeightedNodePath path_2 = new WeightedNodePath(node_3);
-		ArrayList<WeightedNodePath> arr_1 = new ArrayList<>();
-		ArrayList<WeightedNodePath> arr_2 = new ArrayList<>();
-		arr_1.add(path_1);
-		arr_2.add(path_2);
-		ArrayList<WeightedNode> my_arr_2 = new ArrayList<>();
-		my_arr_2.add(node_3);
-		try {
-			PathFinder<WeightedNode,WeightedNodePath> my_pathfinder_1, my_pathfinder_2, my_pathfinder_3;
-			my_pathfinder_1 = new PathFinder<>(g,new ArrayList<WeightedNodePath>(),new ArrayList<>());
-			assertEquals("PathFinder: Shortest path is not empty",null,my_pathfinder_1.GetShortestPath());
-			my_pathfinder_2 = new PathFinder<>(g,arr_1,new ArrayList<WeightedNodePath>());
-			assertEquals("PathFinder: Shortest path is not empty",null,my_pathfinder_2.GetShortestPath());
-			my_pathfinder_3 = new PathFinder<>(g,new ArrayList<WeightedNodePath>(),arr_2);
-			assertEquals("PathFinder: Shortest path is not empty",null,my_pathfinder_3.GetShortestPath());
-		} catch (Exception e){
-			e.printStackTrace();
-		}
-		PathFinder<WeightedNode,WeightedNodePath> my_pathfinder = new PathFinder<>(g,arr_1,arr_2);
-		assertEquals("PathFinder: Graphs are not equal",g,my_pathfinder.graph);
-		assertEquals("PathFinder: Start nodes are not equal",arr_1,my_pathfinder.start_paths);
-		assertEquals("PathFinder: End nodes are not equal",my_arr_2,my_pathfinder.end_paths);
-		WeightedNodePath shortest = my_pathfinder.GetShortestPath();
-		WeightedNodePath my_shortest = new WeightedNodePath(node_1);
-		assertEquals("PathFinder: Shortest path is not correct",shortest,my_shortest.extend(node_3));
-	}
 }

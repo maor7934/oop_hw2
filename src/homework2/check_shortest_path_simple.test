@@ -1,8 +1,0 @@
-CreateNode n1 1
-CreateNode n2 1
-CreateGraph A
-AddNode A n1
-AddNode A n2
-AddEdge A n1 n2
-FindPath A n1 -> n2
-FindPath A n2 -> n1
