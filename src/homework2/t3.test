@@ -1,0 +1,16 @@
+# check empty graph order:
+
+
+CreateGraph A
+
+ListNodes A
+ListChildren A z
+
+FindPath A n1 -> n30
+
+
+
+
+
+
+

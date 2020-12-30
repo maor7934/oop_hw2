@@ -1,0 +1,46 @@
+#check sorting of nodes and children:
+
+CreateNode a 10
+CreateNode b 10
+CreateNode c 10
+CreateNode aba 10
+CreateNode z 10
+CreateNode az 10
+CreateNode cab 10
+CreateNode ca 10
+CreateNode cac 10
+
+CreateNode zzz 500
+
+CreateGraph A
+AddNode A az
+AddNode A cab
+AddNode A ca
+AddNode A z
+AddNode A b
+AddNode A c
+AddNode A aba
+AddNode A cac
+AddNode A zzz
+AddNode A a
+
+
+AddEdge A z a
+AddEdge A z ZZZ
+AddEdge A z cac
+AddEdge A z aba
+AddEdge A z b
+AddEdge A z ca
+AddEdge A z c
+
+
+ListNodes A
+ListChildren A z
+ListChildren A a
+
+
+
+
+
+
+

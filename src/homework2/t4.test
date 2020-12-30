@@ -1,0 +1,68 @@
+#check circle:
+
+CreateNode a 10
+CreateNode b 10
+CreateNode c 10
+CreateNode d 10
+CreateNode e 10
+CreateNode f 10
+
+CreateGraph SmallCircle
+CreateGraph BigCircle
+CreateGraph MultiCircle
+
+AddNode SmallCircle a
+AddNode SmallCircle b
+AddNode SmallCircle c
+
+AddEdge SmallCircle a b
+AddEdge SmallCircle b c
+AddNode SmallCircle c a
+
+ListNodes SmallCircle
+FindPath SmallCircle a -> a
+FindPath SmallCircle a -> c
+
+#
+AddNode BigCircle a
+AddNode BigCircle b
+AddNode BigCircle c
+AddNode BigCircle d
+AddNode BigCircle e
+AddNode BigCircle f
+
+AddEdge BigCircle a b
+AddEdge BigCircle b c
+AddNode BigCircle c d
+AddNode BigCircle d e
+AddNode BigCircle e f
+AddNode BigCircle f a
+
+ListNodes BigCircle
+FindPath BigCircle a -> a
+FindPath BigCircle a -> f
+
+#
+
+AddNode MultiCircle a
+AddNode MultiCircle b
+AddNode MultiCircle c
+AddNode MultiCircle d
+AddNode MultiCircle e
+AddNode MultiCircle f
+
+AddEdge MultiCircle a b
+AddEdge MultiCircle b c
+AddNode MultiCircle c a
+
+AddEdge MultiCircle d e
+AddEdge MultiCircle e f
+AddNode MultiCircle f d
+
+AddNode MultiCircle c d
+
+ListNodes MultiCircle
+FindPath MultiCircle a -> a
+FindPath MultiCircle a -> f
+FindPath MultiCircle f -> a
+FindPath MultiCircle f -> f
