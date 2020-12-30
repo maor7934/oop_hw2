@@ -1,0 +1,100 @@
+# Very long test
+
+CreateNode n1 10
+CreateNode n2 10
+CreateNode n3 10
+CreateNode n4 10
+CreateNode n5 10
+CreateNode n6 10
+CreateNode n7 10
+CreateNode n8 10
+CreateNode n9 10
+
+CreateNode n10 1
+CreateNode n11 1
+CreateNode n12 1
+CreateNode n13 1
+CreateNode n14 1
+CreateNode n15 1
+CreateNode n16 1
+CreateNode n17 1
+CreateNode n18 1
+CreateNode n19 1
+
+CreateNode n21 100
+CreateNode n22 100
+CreateNode n23 100
+CreateNode n24 100
+CreateNode n25 100
+CreateNode n26 100
+CreateNode n27 100
+CreateNode n28 100
+CreateNode n29 100
+
+CreateNode n30 500
+
+CreateGraph A
+AddNode A n1
+AddNode A n10
+AddNode A n20
+AddNode A n30
+AddNode A n2
+AddNode A n12
+AddNode A n13
+AddNode A n14
+AddNode A n25
+AddNode A n26
+AddNode A n19
+
+AddEdge n1 n30
+AddEdge n10 n30
+AddEdge n20 n30
+AddEdge n2 n30
+AddEdge n12 n30
+AddEdge n13 n30
+AddEdge n14 n30
+AddEdge n25 n30
+AddEdge n25 n30
+AddEdge n26 n30
+AddEdge n19 n30
+
+AddEdge n30 n10
+AddEdge n30 n20
+AddEdge n30 n2
+
+
+
+
+AddEdge n1 n2
+AddEdge n1 n14
+AddEdge n25 n13
+AddEdge n24 n25
+AddEdge n30 n19
+AddEdge n19 n26
+AddEdge n26 n25
+AddEdge n25 n24
+AddEdge n13 n26
+AddEdge n24 n10
+AddEdge n19 n1
+AddEdge n1 n19
+AddEdge n24 n20
+AddEdge n20 n10
+AddEdge n10 n14
+
+ListNodes A
+ListChildren A n1
+ListChildren A n30
+ListChildren A n25
+
+# Find a path
+FindPath graph1 n1 -> n30
+FindPath graph1 n30 -> n1
+
+FindPath graph1 n1 -> n24
+FindPath graph1 n19 -> n1
+
+FindPath graph1 n10 -> n26
+
+
+
+
