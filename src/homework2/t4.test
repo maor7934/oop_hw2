@@ -17,9 +17,12 @@ AddNode SmallCircle c
 
 AddEdge SmallCircle a b
 AddEdge SmallCircle b c
-AddNode SmallCircle c a
+AddEdge SmallCircle c a
 
 ListNodes SmallCircle
+ListChildren SmallCircle a
+ListChildren SmallCircle b
+ListChildren SmallCircle c
 FindPath SmallCircle a -> a
 FindPath SmallCircle a -> c
 
@@ -33,12 +36,14 @@ AddNode BigCircle f
 
 AddEdge BigCircle a b
 AddEdge BigCircle b c
-AddNode BigCircle c d
-AddNode BigCircle d e
-AddNode BigCircle e f
-AddNode BigCircle f a
+AddEdge BigCircle c d
+AddEdge BigCircle d e
+AddEdge BigCircle e f
+AddEdge BigCircle f a
 
 ListNodes BigCircle
+ListChildren BigCircle a
+ListChildren BigCircle f
 FindPath BigCircle a -> a
 FindPath BigCircle a -> f
 
@@ -53,15 +58,17 @@ AddNode MultiCircle f
 
 AddEdge MultiCircle a b
 AddEdge MultiCircle b c
-AddNode MultiCircle c a
+AddEdge MultiCircle c a
 
 AddEdge MultiCircle d e
 AddEdge MultiCircle e f
-AddNode MultiCircle f d
+AddEdge MultiCircle f d
 
-AddNode MultiCircle c d
+AddEdge MultiCircle c d
 
 ListNodes MultiCircle
+ListChildren MultiCircle a
+ListChildren MultiCircle f
 FindPath MultiCircle a -> a
 FindPath MultiCircle a -> f
 FindPath MultiCircle f -> a

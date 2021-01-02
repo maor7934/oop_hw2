@@ -1,0 +1,41 @@
+#check cross children:
+
+created node a1 with cost 10
+created node a2 with cost 10
+created node b1 with cost 10
+created node b2 with cost 10
+
+created graph A
+created graph B
+
+added node a1 to A
+added node a2 to A
+added node b1 to B
+added node b2 to B
+
+added edge from a1 to a2 in A
+added edge from b1 to b2 in B
+
+A contains: a1 a2
+B contains: b1 b2
+
+the children of a1 in A are: a2
+
+the children of a1 in A are: a2
+no path found in A
+
+added node b1 to A
+the children of a1 in A are: a2
+no path found in A
+
+added edge from a1 to b1 in A
+the children of a1 in A are: a2 b1
+no path found in A
+
+added node b2 to A
+the children of a1 in A are: a2 b1
+no path found in A
+
+added edge from b1 to b2 in A
+the children of a1 in A are: a2 b1
+shortest path in A: a1 b1 b2

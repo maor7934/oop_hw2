@@ -20,6 +20,7 @@ CreateNode n16 1
 CreateNode n17 1
 CreateNode n18 1
 CreateNode n19 1
+CreateNode n20 27
 
 CreateNode n21 100
 CreateNode n22 100
@@ -87,13 +88,13 @@ ListChildren A n30
 ListChildren A n25
 
 # Find a path
-FindPath graph1 n1 -> n30
-FindPath graph1 n30 -> n1
+FindPath A n1 -> n30
+FindPath A n30 -> n1
 
-FindPath graph1 n1 -> n24
-FindPath graph1 n19 -> n1
+FindPath A n1 -> n24
+FindPath A n19 -> n1
 
-FindPath graph1 n10 -> n26
+FindPath A n10 -> n26
 
 
 

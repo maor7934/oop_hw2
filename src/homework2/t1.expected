@@ -1,1 +1,96 @@
-#
+# Very long test
+
+created node n1 with cost 10
+created node n2 with cost 10
+created node n3 with cost 10
+created node n4 with cost 10
+created node n5 with cost 10
+created node n6 with cost 10
+created node n7 with cost 10
+created node n8 with cost 10
+created node n9 with cost 10
+
+created node n10 with cost 1
+created node n11 with cost 1
+created node n12 with cost 1
+created node n13 with cost 1
+created node n14 with cost 1
+created node n15 with cost 1
+created node n16 with cost 1
+created node n17 with cost 1
+created node n18 with cost 1
+created node n19 with cost 1
+created node n20 with cost 27
+
+created node n21 with cost 100
+created node n22 with cost 100
+created node n23 with cost 100
+created node n24 with cost 100
+created node n25 with cost 100
+created node n26 with cost 100
+created node n27 with cost 100
+created node n28 with cost 100
+created node n29 with cost 100
+
+created node n30 with cost 500
+
+created graph A
+added node n1 to A
+added node n10 to A
+added node n20 to A
+added node n30 to A
+added node n2 to A
+added node n12 to A
+added node n13 to A
+added node n14 to A
+added node n25 to A
+added node n26 to A
+added node n19 to A
+
+added edge from n1 to n30 in A
+added edge from n10 to n30 in A
+added edge from n20 to n30 in A
+added edge from n2 to n30 in A
+added edge from n12 to n30 in A
+added edge from n13 to n30 in A
+added edge from n14 to n30 in A
+added edge from n25 to n30 in A
+added edge from n26 to n30 in A
+added edge from n19 to n30 in A
+
+added edge from n30 to n10 in A
+added edge from n30 to n20 in A
+added edge from n30 to n2 in A
+
+
+
+
+added edge from n1 to n2 in A
+added edge from n1 to n14 in A
+added edge from n25 to n13 in A
+added edge from n30 to n19 in A
+added edge from n19 to n26 in A
+added edge from n26 to n25 in A
+added edge from n13 to n26 in A
+added edge from n19 to n1 in A
+added edge from n1 to n19 in A
+added edge from n20 to n10 in A
+added edge from n10 to n14 in A
+
+A contains: n1 n10 n12 n13 n14 n19 n2 n20 n25 n26 n30
+the children of n1 in A are: n14 n19 n2 n30
+the children of n30 in A are: n10 n19 n2 n20
+the children of n25 in A are: n13 n30
+
+# Find a path
+shortest path in A: n1 n19 n26 n25 n13 n30
+shortest path in A: n30 n19 n1
+
+no path found in A
+shortest path in A: n19 n1
+
+shortest path in A: n10 n14 n30 n19 n26
+
+
+
+
