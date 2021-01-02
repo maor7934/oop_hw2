@@ -9,9 +9,9 @@ import java.util.*;
  */
 
 public class PathFinder<N, P extends Path<N, P>> {
-    private Graph<N> graph;
-    private ArrayList<P> start_points;
-    private ArrayList<N> end_points;  // need to save this as Node for algorithm
+    protected Graph<N> graph;
+    protected ArrayList<P> start_points;
+    protected ArrayList<N> end_points;  // need to save this as Node for algorithm
     private void checkRep () {
         assert
                 this.graph != null && this.start_points != null && this.end_points != null:
@@ -36,7 +36,7 @@ public class PathFinder<N, P extends Path<N, P>> {
      * @effects returns the shortest path possible with the curretn graph, end
      *          points, and start points
      */
-    public P FindShortestPath()  throws NodeNotInGraphExpection{
+    public P FindShortestPath()  throws NodeNotInGraphException {
         this.checkRep();
         // creating the data structures needed for the algorithmm
         HashMap<N, P> paths = new HashMap<>();
@@ -57,7 +57,7 @@ public class PathFinder<N, P extends Path<N, P>> {
             // iterate over edges (queueMin, c) in queueMin.edges
             for (N child : this.graph.getChildren(queueMin)) {
                 P cpath = queueMinPath.extend(child);
-                if (!finished.contains(child) && !active.contains(child) && (queueMin != child)) { //added due to error
+                if (!finished.contains(child) && !active.contains(paths.get(child)) && (queueMin != child)) { //added due to error
                     paths.put(child, cpath);
                     // insert c in active with priority equal to cpath's cost;
                     active.add(cpath);

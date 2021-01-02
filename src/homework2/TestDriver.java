@@ -205,7 +205,7 @@ public class TestDriver {
 		} catch (AlreadyHasEdgeException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (NodeNotInGraphExpection e) {
+		} catch (NodeNotInGraphException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -277,7 +277,7 @@ public class TestDriver {
 			output.print(" "+curr_child_name);
 		}
 		output.println();
-	} catch (NodeNotInGraphExpection e) {
+	} catch (NodeNotInGraphException e) {
 			e.printStackTrace();
 		}
 
@@ -350,7 +350,7 @@ public class TestDriver {
 				output.println("no path found in " + graphName);
 			}
 
-		} catch (NodeNotInGraphExpection e) {
+		} catch (NodeNotInGraphException e) {
 			e.printStackTrace();
 
 		}

@@ -10,7 +10,7 @@ class AlreadyHasEdgeException extends Exception {
 
 }
 
-class NodeNotInGraphExpection extends Exception {
+class NodeNotInGraphException extends Exception {
 
 }
 
@@ -80,12 +80,12 @@ public class Graph<T> {
      * @modifies this object.
      * @return true if added the child,
      * @throws AlreadyHasEdgeException is it didn't  (already has the edgeg)
-     * @throws NodeNotInGraphExpection is it didn't (parent or child arne't found in the graph)
+     * @throws NodeNotInGraphException is it didn't (parent or child arne't found in the graph)
      **/
-    public Boolean addEdge(T parent_node, T child_node_name) throws AlreadyHasEdgeException, NodeNotInGraphExpection {
+    public Boolean addEdge(T parent_node, T child_node_name) throws AlreadyHasEdgeException, NodeNotInGraphException {
         checkRep();
         if (!(this.nodeCollection.containsKey(parent_node) && this.nodeCollection.containsKey(child_node_name))) {
-            throw new NodeNotInGraphExpection();
+            throw new NodeNotInGraphException();
         }
         if (this.nodeCollection.get(parent_node).contains(child_node_name)) {
             throw new AlreadyHasEdgeException();
@@ -116,13 +116,13 @@ public class Graph<T> {
      * @return if the parent exist in the graph, we'll return an array list
      *         containing its children, and null otherwise.
      **/
-    public ArrayList<T> getChildren(T parentNode) throws NodeNotInGraphExpection {
+    public ArrayList<T> getChildren(T parentNode) throws NodeNotInGraphException {
         checkRep();
         if (this.nodeCollection.containsKey(parentNode)) {
             // return this.nodeCollection.get(parentNode);
             return new ArrayList<T>(this.nodeCollection.get(parentNode)); // TODO: maybe return hard copy of nodes?
         } else {
-            throw new NodeNotInGraphExpection();
+            throw new NodeNotInGraphException();
 
         }
     }
