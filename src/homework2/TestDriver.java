@@ -164,7 +164,8 @@ public class TestDriver {
 			current_graph.addNode(current_node);
 			output.println("added node "+nodeName+" to "+graphName);
 		} catch (AlreadyHasNodeException e) {
-			e.printStackTrace();
+			throw new CommandException(
+					"Graph " + graphName +" Already has node "+nodeName);
 		}
 		// ___ = graphs.get(graphName);
 		// ___ = nodes.get(nodeName);
@@ -203,14 +204,12 @@ public class TestDriver {
 			}
 			output.println("added edge from "+parentName+" to "+childName+ " in "+graphName);
 		} catch (AlreadyHasEdgeException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new CommandException(
+					"Graph " + graphName +" already have edge between nodes "+parentName + " -> " + childName);
 		} catch (NodeNotInGraphExpection e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new CommandException(
+					"Graph " + graphName +" doesn't have node "+parentName + " \\ " + childName);
 		}
-
-		// output.println(...);
 
 	}
 
@@ -266,19 +265,20 @@ public class TestDriver {
 		Graph<WeightedNode> current_graph = graphs.get(graphName);
 		WeightedNode parent_node = nodes.get(parentName);
 		try {
-		ArrayList<WeightedNode> children_of_current_Parent_List = current_graph.getChildren(parent_node);
-		ArrayList<String> children_list_of_names = new ArrayList<String>();
-		for (WeightedNode curr_node : children_of_current_Parent_List) {
-			children_list_of_names.add(curr_node.getName());
-		}
-		Collections.sort(children_list_of_names);
-		output.print("the children of "+parentName+" in " + graphName+" are:");
-		for (String curr_child_name : children_list_of_names) {
-			output.print(" "+curr_child_name);
-		}
-		output.println();
-	} catch (NodeNotInGraphExpection e) {
-			e.printStackTrace();
+			ArrayList<WeightedNode> children_of_current_Parent_List = current_graph.getChildren(parent_node);
+			ArrayList<String> children_list_of_names = new ArrayList<String>();
+			for (WeightedNode curr_node : children_of_current_Parent_List) {
+				children_list_of_names.add(curr_node.getName());
+			}
+			Collections.sort(children_list_of_names);
+			output.print("the children of "+parentName+" in " + graphName+" are:");
+			for (String curr_child_name : children_list_of_names) {
+				output.print(" "+curr_child_name);
+			}
+			output.println();
+		} catch (NodeNotInGraphExpection e) {
+			throw new CommandException(
+					"Graph " + graphName +" doesn't have node "+parentName);
 		}
 
 
@@ -351,8 +351,8 @@ public class TestDriver {
 			}
 
 		} catch (NodeNotInGraphExpection e) {
-			e.printStackTrace();
-
+			throw new CommandException(
+					"FindPath: one of the nodes wasn't found at graph "+ graphName);
 		}
 
 	}

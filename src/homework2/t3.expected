@@ -1,1 +1,20 @@
-#
+# check empty graph order:
+
+
+created graph A
+
+A contains:
+
+#check empty children:
+
+created graph B
+created node onlyNode with cost 10
+added node onlyNode to B
+the children of onlyNode in B are:
+
+
+
+
+
+
+

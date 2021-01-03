@@ -26,7 +26,6 @@ AddNode A a
 
 
 AddEdge A z a
-AddEdge A z ZZZ
 AddEdge A z cac
 AddEdge A z aba
 AddEdge A z b

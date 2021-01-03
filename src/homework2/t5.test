@@ -1,0 +1,43 @@
+#check cross children:
+
+CreateNode a1 10
+CreateNode a2 10
+CreateNode b1 10
+CreateNode b2 10
+
+CreateGraph A
+CreateGraph B
+
+AddNode A a1
+AddNode A a2
+AddNode B b1
+AddNode B b2
+
+AddEdge A a1 a2
+AddEdge B b1 b2
+
+ListNodes A
+ListNodes B
+
+ListChildren A a1
+ListChildren A b1
+
+AddEdge A a1 b1
+ListChildren A a1
+FindPath A a1 -> b2
+
+AddNode A b1
+ListChildren A a1
+FindPath A a1 -> b2
+
+AddEdge A a1 b1
+ListChildren A a1
+FindPath A a1 -> b2
+
+AddNode A b2
+ListChildren A a1
+FindPath A a1 -> b2
+
+AddEdge A b1 b2
+ListChildren A a1
+FindPath A a1 -> b2

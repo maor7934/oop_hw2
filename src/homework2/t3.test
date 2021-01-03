@@ -4,9 +4,13 @@
 CreateGraph A
 
 ListNodes A
-ListChildren A z
 
-FindPath A n1 -> n30
+#check empty children:
+
+CreateGraph B
+CreateNode onlyNode 10
+AddNode B onlyNode
+ListChildren B onlyNode
 
 
 

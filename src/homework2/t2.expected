@@ -1,1 +1,45 @@
-#
+#check sorting of nodes and children:
+
+created node a with cost 10
+created node b with cost 10
+created node c with cost 10
+created node aba with cost 10
+created node z with cost 10
+created node az with cost 10
+created node cab with cost 10
+created node ca with cost 10
+created node cac with cost 10
+
+created node zzz with cost 500
+
+created graph A
+added node az to A
+added node cab to A
+added node ca to A
+added node z to A
+added node b to A
+added node c to A
+added node aba to A
+added node cac to A
+added node zzz to A
+added node a to A
+
+
+added edge from z to a in A
+added edge from z to cac in A
+added edge from z to aba in A
+added edge from z to b in A
+added edge from z to ca in A
+added edge from z to c in A
+
+
+A contains: a aba az b c ca cab cac z zzz
+the children of z in A are: a aba b c ca cac
+the children of a in A are:
+
+
+
+
+
+
+

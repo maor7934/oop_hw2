@@ -1,1 +1,75 @@
+#check circle:
+
+created node a with cost 10
+created node b with cost 10
+created node c with cost 10
+created node d with cost 10
+created node e with cost 10
+created node f with cost 10
+
+created graph SmallCircle
+created graph BigCircle
+created graph MultiCircle
+
+added node a to SmallCircle
+added node b to SmallCircle
+added node c to SmallCircle
+
+added edge from a to b in SmallCircle
+added edge from b to c in SmallCircle
+added edge from c to a in SmallCircle
+
+SmallCircle contains: a b c
+the children of a in SmallCircle are: b
+the children of b in SmallCircle are: c
+the children of c in SmallCircle are: a
+shortest path in SmallCircle: a
+shortest path in SmallCircle: a b c
+
 #
+added node a to BigCircle
+added node b to BigCircle
+added node c to BigCircle
+added node d to BigCircle
+added node e to BigCircle
+added node f to BigCircle
+
+added edge from a to b in BigCircle
+added edge from b to c in BigCircle
+added edge from c to d in BigCircle
+added edge from d to e in BigCircle
+added edge from e to f in BigCircle
+added edge from f to a in BigCircle
+
+BigCircle contains: a b c d e f
+the children of a in BigCircle are: b
+the children of f in BigCircle are: a
+shortest path in BigCircle: a
+shortest path in BigCircle: a b c d e f
+
+#
+
+added node a to MultiCircle
+added node b to MultiCircle
+added node c to MultiCircle
+added node d to MultiCircle
+added node e to MultiCircle
+added node f to MultiCircle
+
+added edge from a to b in MultiCircle
+added edge from b to c in MultiCircle
+added edge from c to a in MultiCircle
+
+added edge from d to e in MultiCircle
+added edge from e to f in MultiCircle
+added edge from f to d in MultiCircle
+
+added edge from c to d in MultiCircle
+
+MultiCircle contains: a b c d e f
+the children of a in MultiCircle are: b
+the children of f in MultiCircle are: d
+shortest path in MultiCircle: a
+shortest path in MultiCircle: a b c d e f
+no path found in MultiCircle
+shortest path in MultiCircle: f
