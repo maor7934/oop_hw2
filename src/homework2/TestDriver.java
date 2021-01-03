@@ -106,16 +106,18 @@ public class TestDriver {
 		createGraph(graphName);
 	}
 
-
+	/**
+	 * Creates a new graph and insert it to the collection.
+	 * @requires graphName != null
+	 * @effects Creates a new empty graph and adds it to the collection.
+	 */
 	private void createGraph(String graphName) {
 
-		//TODO: Insert your code here.
 		graphs.put(graphName,new Graph<WeightedNode>());
-		// graphs.put(graphName, ___);
 		output.println("created graph "+graphName);
-	}//
+	}
 
-
+	
 	private void createNode(List<String> arguments) {
 
 		if (arguments.size() != 2)
@@ -126,13 +128,14 @@ public class TestDriver {
 		String cost = arguments.get(1);
 		createNode(nodeName, cost);
 	}
-
-
+	/**
+	 * Creates a new node and adds it to the collection.
+	 * @requires nodeName != null && cost !=null.
+	 * @effects Creates a new node and adds it to the collection.
+	 */
 	private void createNode(String nodeName, String cost) {
 
-		// TODO: Insert your code here.
 		WeightedNode new_node = new WeightedNode(nodeName,Integer.parseInt(cost));
-		//nodes.put(nodeName, new homework2.WeightedNode(nodeName,cost));
 		nodes.put(nodeName, new_node);
 		output.println("created node "+nodeName+" with cost "+ cost );
 
@@ -150,15 +153,20 @@ public class TestDriver {
 		addNode(graphName, nodeName);
 	}
 
-
+	/**
+	 * Adds an existing node to an existing graph.
+	 * @requires nodeName != null && graphName !=null.
+	 * @effects 
+	 * @modifies the given graph object, insert the node into it.
+	 * @throws CommandException, if the graph or node aren't in the collections or if graph doesn
+	 */
 	private void addNode(String graphName, String nodeName) {
 
-		// TODO: Insert your code here.
 		Graph<WeightedNode> current_graph = graphs.get(graphName);
 		WeightedNode current_node = nodes.get(nodeName);
 		if (current_graph == null || current_node == null) {
-			output.println("--E-- homework2.TestDriver::addNode: shoudn't get here! graph or node doesn't exists");
-			return;
+			throw new CommandException(
+					"Graph " + graphName +" or node "+nodeName +"doesn't exists");
 		}
 		try {
 			current_graph.addNode(current_node);
@@ -167,12 +175,9 @@ public class TestDriver {
 			throw new CommandException(
 					"Graph " + graphName +" Already has node "+nodeName);
 		}
-		// ___ = graphs.get(graphName);
-		// ___ = nodes.get(nodeName);
-
 
 	}
-
+	
 	private void addEdge(List<String> arguments) {
 
 		if (arguments.size() != 3)
@@ -185,22 +190,26 @@ public class TestDriver {
 		addEdge(graphName, parentName, childName);
 	}
 
-
+	/**
+	 * Adds an edge between existing node in an existing graph.
+	 * @requires graphName != null && parentName !=null && childName !=null.
+	 * @effects 
+	 * @modifies the given graph object, insert the new edge node into it.
+	 * @throws CommandException, if the graph or node aren't in the collections or if graph doesn't contain the data.
+	 */
 	private void addEdge(String graphName, String parentName, String childName) {
-
-		// TODO: Insert your code here.
 
 		Graph<WeightedNode> current_graph = graphs.get(graphName);
 		WeightedNode parent__node  = nodes.get(parentName);
 		WeightedNode child_node  = nodes.get(childName);
 		if (current_graph == null || parent__node == null || child_node == null) {
-			output.println("--E-- homework2.TestDriver::addEdge: shoudn't get here! graph or p c node doesn't exists");
-			return;
+			throw new CommandException(
+					"Graph " + graphName +" or node "+parentName +"or node "+childName+" doesn't exists");
 		}
 		try {
 			if (!current_graph.addEdge(parent__node, child_node)) {
-				output.println("--E-- homework2.TestDriver::addEdge: shoudn't get here! the graph doesn't contain the child");
-				return;
+				throw new CommandException(
+						"Graph " + graphName +" dosen't have "+parentName +" or  "+childName);
 			}
 			output.println("added edge from "+parentName+" to "+childName+ " in "+graphName);
 		} catch (AlreadyHasEdgeException e) {
@@ -225,11 +234,18 @@ public class TestDriver {
 	}
 
 
+	/**
+	 * print all the nodes of a given graph.
+	 * @requires graphName != null 
+	 * @throws CommandException, if the graph doesn't exist.
+	 */
 	private void listNodes(String graphName) {
 
-		// TODO: Insert your code here.
-
 		Graph<WeightedNode> current_graph = graphs.get(graphName);
+		if (current_graph == null) {
+			throw new CommandException(
+					"Graph " + graphName +" doesn't exists");
+		}
 		ArrayList<WeightedNode> current_graph_nodes_list = current_graph.getNodes();
 		ArrayList<String> nodes_name_list = new ArrayList<String>();
 
@@ -257,13 +273,19 @@ public class TestDriver {
 		listChildren(graphName, parentName);
 	}
 
-
+	/**
+	 * print all the children of a nodes of a given graph.
+	 * @requires graphName != null && parentName!=null
+	 * @throws CommandException, if the graph or node doesn't exist in the databasse or the object.
+	 */
 	private void listChildren(String graphName, String parentName){
-
-		// TODO: Insert your code here.
 
 		Graph<WeightedNode> current_graph = graphs.get(graphName);
 		WeightedNode parent_node = nodes.get(parentName);
+		if (current_graph == null || parent_node==null ) {
+			throw new CommandException(
+					"Graph " + graphName +" or node " +parentName+" doesn't exists");
+		}
 		try {
 			ArrayList<WeightedNode> children_of_current_Parent_List = current_graph.getChildren(parent_node);
 			ArrayList<String> children_list_of_names = new ArrayList<String>();
@@ -280,7 +302,6 @@ public class TestDriver {
 			throw new CommandException(
 					"Graph " + graphName +" doesn't have node "+parentName);
 		}
-
 
 	}
 
@@ -321,11 +342,14 @@ public class TestDriver {
 		findPath(graphName, sourceArgs, destArgs);
 	}
 
-
+	/**
+	 * find the shortest path in the graph.
+	 * @requires graphName != null && sourceArgs!=null && destArgs!=null
+	 * @throws CommandException, if the graph or node doesn't exist in the database or inside the graph the object.
+	 */
 	private void findPath(String graphName, List<String> sourceArgs,
 						  List<String> destArgs) {
 
-		// TODO: Insert your code here.
 
 		Graph<WeightedNode> current_graph = graphs.get(graphName);
 		ArrayList<WeightedNodePath> start_points = new ArrayList<WeightedNodePath>();
@@ -349,7 +373,7 @@ public class TestDriver {
 			} else {
 				output.println("no path found in " + graphName);
 			}
-			
+
 		} catch (NodeNotInGraphException e) {
 			throw new CommandException(
 					"FindPath: one of the nodes wasn't found at graph "+ graphName);

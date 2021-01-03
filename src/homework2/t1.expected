@@ -88,13 +88,13 @@ the children of n30 in A are: n10 n19 n2 n20
 the children of n25 in A are: n13 n30
 
 # Find a path
-shortest path in A: n1 n19 n26 n25 n13 n30
+shortest path in A: n1 n30
 shortest path in A: n30 n19 n1
 
 no path found in A
 shortest path in A: n19 n1
 
-shortest path in A: n10 n14 n30 n19 n26
+shortest path in A: n10 n30 n19 n26
 
 
 
