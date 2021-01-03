@@ -38,7 +38,7 @@ public class PathFinder<N, P extends Path<N, P>> {
      */
     public P FindShortestPath()  throws NodeNotInGraphException {
         this.checkRep();
-        // creating the data structures needed for the algorithmm
+        // creating the data structures needed for the algorithm
         HashMap<N, P> paths = new HashMap<>();
         for (P path : this.start_points) {
             paths.put(path.getEnd(), path);
@@ -46,26 +46,22 @@ public class PathFinder<N, P extends Path<N, P>> {
         PriorityQueue<P> active = new PriorityQueue<>(this.start_points);
         ArrayList<N> finished = new ArrayList<>();
         while (!active.isEmpty()) {
-
-            // queueMin is the element of active with shortest path
             N queueMin = active.poll().getEnd();
             P queueMinPath = paths.get(queueMin);
             if (this.end_points.contains(queueMin)) {
                 this.checkRep();
                 return queueMinPath;
             }
-            // iterate over edges (queueMin, c) in queueMin.edges
             for (N child : this.graph.getChildren(queueMin)) {
                 P cpath = queueMinPath.extend(child);
                 if (!finished.contains(child) && !active.contains(paths.get(child)) && (queueMin != child)) { //added due to error
                     paths.put(child, cpath);
-                    // insert c in active with priority equal to cpath's cost;
                     active.add(cpath);
                 }
             }
             finished.add(queueMin);
         }
-        // execution reaches this point only if active becomes empty
+        // there is no path available
         this.checkRep();
         return null;
     }

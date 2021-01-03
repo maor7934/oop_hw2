@@ -103,7 +103,7 @@ public class Graph<T> {
      **/
     public ArrayList<T> getNodes() {
         checkRep();
-        return new ArrayList<T>(this.nodeCollection.keySet()); // TODO: maybe return hard copy of nodes?
+        return new ArrayList<T>(this.nodeCollection.keySet());
     }
 
     /**
@@ -119,8 +119,7 @@ public class Graph<T> {
     public ArrayList<T> getChildren(T parentNode) throws NodeNotInGraphException {
         checkRep();
         if (this.nodeCollection.containsKey(parentNode)) {
-            // return this.nodeCollection.get(parentNode);
-            return new ArrayList<T>(this.nodeCollection.get(parentNode)); // TODO: maybe return hard copy of nodes?
+            return new ArrayList<T>(this.nodeCollection.get(parentNode));
         } else {
             throw new NodeNotInGraphException();
 

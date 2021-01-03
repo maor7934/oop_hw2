@@ -13,7 +13,6 @@ import java.util.*;
  */
 public class GraphTests extends ScriptFileTests {
 
-	// black-box test are inherited from super
 	public GraphTests(java.nio.file.Path testFile) {
 		super(testFile);
 	}
