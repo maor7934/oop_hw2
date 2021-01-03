@@ -206,7 +206,7 @@ public class TestDriver {
 		} catch (AlreadyHasEdgeException e) {
 			throw new CommandException(
 					"Graph " + graphName +" already have edge between nodes "+parentName + " -> " + childName);
-		} catch (NodeNotInGraphExpection e) {
+		} catch (NodeNotInGraphException e) {
 			throw new CommandException(
 					"Graph " + graphName +" doesn't have node "+parentName + " \\ " + childName);
 		}
@@ -276,7 +276,7 @@ public class TestDriver {
 				output.print(" "+curr_child_name);
 			}
 			output.println();
-		} catch (NodeNotInGraphExpection e) {
+		} catch (NodeNotInGraphException e) {
 			throw new CommandException(
 					"Graph " + graphName +" doesn't have node "+parentName);
 		}
@@ -349,8 +349,8 @@ public class TestDriver {
 			} else {
 				output.println("no path found in " + graphName);
 			}
-
-		} catch (NodeNotInGraphExpection e) {
+			
+		} catch (NodeNotInGraphException e) {
 			throw new CommandException(
 					"FindPath: one of the nodes wasn't found at graph "+ graphName);
 		}
